@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS hotelgaeste
 
 -- Vorhandene csv importieren
 COPY hotelgaeste
-    FROM './Hotel Reservations.csv'
+    FROM 'C:\Users\magnu\Documents\GitHub\sql-project-04\Hotel_Reservations.csv'
     DELIMITER ','
     CSV HEADER;
 
