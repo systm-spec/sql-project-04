@@ -13,7 +13,7 @@ if src_path not in sys.path:
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("Der RPG")
+        self.title("Hotel-App")
         self.geometry("1280x720")
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("config/theme/custom.json")
