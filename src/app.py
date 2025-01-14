@@ -23,7 +23,7 @@ class App(ctk.CTk):
 
         # START WINDOW ###
         self.start_menu_frame = StartMenu(master=self, fg_color="transparent")
-        self.start_menu_frame.grid(row=0, column=0, padx=20, pady=210, sticky="nsew")
+        self.start_menu_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
 
         #### CREATION WINDOW ###
         #self.start_character_frame = ConfigWrapper(self, fg_color="transparent")
