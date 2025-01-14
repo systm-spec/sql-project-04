@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS hotelgaeste
 
 -- Vorhandene csv importieren
 COPY hotelgaeste
-    FROM 'C:\Users\magnu\Documents\GitHub\sql-project-04\Hotel_Reservations.csv'
+    FROM 'C:\Users\Admin\Documents\sql-project-04\Hotel_Reservations.csv'
     DELIMITER ','
     CSV HEADER;
 
@@ -44,6 +44,37 @@ ALTER TABLE hotelgaeste
 
 ALTER TABLE hotelgaeste
     DROP COLUMN no_of_special_requests;
+
+SELECT *
+FROM hotelgaeste;
+
+-- Spalten hinzufügen
+
+ALTER TABLE hotelgaeste
+    ADD COLUMN nachname      TEXT,
+    ADD COLUMN vorname       TEXT,
+    ADD COLUMN Ankunftsdatum DATE,
+    ADD COLUMN Abreisedatum  DATE;
+
+
+CREATE TABLE mock_names
+(
+    first_name TEXT,
+    last_name  TEXT
+);
+
+COPY mock_names
+    FROM 'C:\Users\Admin\Documents\sql-project-04\src\config\init\Kunden.csv'
+    DELIMITER ','
+    HEADER CSV;
+
+SELECT *
+FROM mock_names;
+
+
+INSERT INTO hotelgaeste (vorname, nachname)
+SELECT first_name, last_name
+FROM mock_names;
 
 SELECT *
 FROM hotelgaeste;
