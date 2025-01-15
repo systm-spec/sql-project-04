@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS hotelgaeste;
 -- Tabelle erstellen
 CREATE TABLE IF NOT EXISTS hotelgaeste
 (
-    ID                             TEXT,
+    Hotel_ID                       TEXT,
     Erwachsene                     INT,
     Kinder                         INT,
     Nächte_am_Wochenende           INT,
@@ -57,6 +57,8 @@ ALTER TABLE hotelgaeste
     ADD COLUMN Abreisedatum  DATE;
 
 
+DROP TABLE IF EXISTS mock_names;
+
 CREATE TABLE mock_names
 (
     first_name TEXT,
@@ -70,6 +72,14 @@ COPY mock_names
 
 SELECT *
 FROM mock_names;
+
+
+UPDATE hotelgaeste
+SET vorname  = mock_names.first_name,
+    nachname = mock_names.last_name
+FROM mock_names
+         JOIN hotelgaeste
+              ON hotelgaeste.vorname = mock_names.first_name;
 
 
 INSERT INTO hotelgaeste (vorname, nachname)
