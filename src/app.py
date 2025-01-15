@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from modules.StartMenu import StartMenu
+from modules.SearchCustomer import SearchCustomer
 from util.windows import check_for_windows
 from PIL import Image
 import os
@@ -22,7 +23,7 @@ class App(ctk.CTk):
         self.bind("<Escape>", lambda a: self.destroy())
 
         # START WINDOW ###
-        self.start_menu_frame = StartMenu(master=self, fg_color="transparent")
+        self.start_menu_frame = SearchCustomer(master=self, fg_color="transparent")
         self.start_menu_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
 
         #### CREATION WINDOW ###

@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS hotelgaeste
 
 -- Vorhandene csv importieren
 COPY hotelgaeste
-    FROM 'C:\Users\Admin\Documents\sql-project-04\Hotel_Reservations.csv'
+    FROM 'C:\GitHub\sql-project-04\Hotel_Reservations.csv'
     DELIMITER ','
     CSV HEADER;
 
@@ -69,7 +69,7 @@ CREATE TABLE mock_names
 );
 
 COPY mock_names
-    FROM 'C:\Users\Admin\Documents\sql-project-04\src\config\init\Kunden.csv'
+    FROM 'C:\GitHub\sql-project-04\src\config\init\Kunden.csv'
     DELIMITER ','
     HEADER CSV;
 
