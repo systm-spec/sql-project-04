@@ -20,3 +20,9 @@ class SearchCustomer(ctk.CTkFrame):
         # Search-Button
         self.search_btn = ctk.CTkButton(self.search_frame, fg_color="transparent", corner_radius=2, text="Search")
         self.search_btn.grid(ipadx=3, ipady=4, column=1, row=0)
+
+        # Content-Frame
+        self.content_frame = ctk.CTkFrame(self, fg_color="#808080")
+        self.content_frame.grid(column=0, row=1)
+        self.test_lbl = ctk.CTkLabel(self.content_frame, text="placeholder")
+        self.test_lbl.grid(ipadx=4, ipady=4)
