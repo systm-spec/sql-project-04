@@ -197,20 +197,30 @@ def speichern(self):
         durchschnittlicher_zimmerpreis = self.average_price_entry.get()
         buchungsstatus = self.booking_status_entry.get()
 
+
         insert_query = """
-        
-    INSERT INTO hotelgaeste (erwachsene, kinder, nächte_am_wochenende, nächte_unter_der_woche,
-    verpflegungsplan, parkplatz, zimmertyp, ankunftsjahr, ankunftsmonat,
-    ankunftstag, marktsegment, wiederkehrender_gast, vorherige_stornierungen,
-    vorherige_nicht_stornierungen, durchschnittlicher_zimmerpreis, buchungsstatus)
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
-        """
+           INSERT INTO hotelgaeste (
+               erwachsene, kinder, nächte_am_wochenende, nächte_unter_der_woche,
+               verpflegungsplan, parkplatz, zimmertyp, ankunftsjahr, ankunftsmonat,
+               ankunftstag, marktsegment, wiederkehrender_gast, vorherige_stornierungen,
+               vorherige_nicht_stornierungen, durchschnittlicher_zimmerpreis, buchungsstatus
+           ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+           """
+        cursor.execute(insert_query, (
+            erwachsene, kinder, nächte_am_wochenende, nächte_unter_der_woche,
+            verpflegungsplan, parkplatz, zimmertyp, ankunftsjahr, ankunftsmonat,
+            ankunftstag, marktsegment, wiederkehrender_gast, vorherige_stornierungen,
+            vorherige_nicht_stornierungen, durchschnittlicher_zimmerpreis, buchungsstatus
+        ))
 
-    cursor.execute (insert_query,(erwachsene, kinder, nächte_am_wochenende, nächte_unter_der_woche,
-    verpflegungsplan, parkplatz, zimmertyp, ankunftsjahr, ankunftsmonat,
-    ankunftstag, marktsegment, wiederkehrender_gast, vorherige_stornierungen,
-    vorherige_nicht_stornierungen, durchschnittlicher_zimmerpreis, buchungsstatus))
+        connection.commit()
+        cursor.close()
+        connection.close()
 
+        print("Erfolgreich gespeichert!")
+
+    except Exception as e:
+        print("Fehler:", e)
 
 
 
