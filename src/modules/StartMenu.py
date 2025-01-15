@@ -17,10 +17,12 @@ class StartMenu(ctk.CTkFrame):
         self.main_frame = ctk.CTkFrame(self, fg_color='transparent')
         self.main_frame.grid(column=0, row=1, pady=7)
 
-        ### TODO: Join Mock-Names into DB ###
         # First-Name
         # Last-Name
 
+        #Save_Button
+        self.save_button=ctk.CTkButton(self.main_frame,text='Speichern',command=self.speichern)
+        self.save_button.grid(pady=20)
         # ID
         self.id_frame = CTkFrame(self.main_frame)
         self.id_frame.grid(pady=3)
@@ -166,61 +168,58 @@ class StartMenu(ctk.CTkFrame):
         self.booking_status_entry = ctk.CTkEntry(self.booking_status_frame)
         self.booking_status_entry.grid()
 
-        #Save_Button
-        self.save_button=ctk.CTkButton(self.main_frame,text='Speichern',command=self.speichern)
-        self.save_button.grid(pady=20)
+    def speichern(self):
+        try:
+            connection=psycopg2.connect(
+                host='localhost',
+                database='hoteldb',
+                user='postgres',
+                password='admin'
+            )
+            print("Connection established.")
+            cursor=connection.cursor()
 
-def speichern(self):
-    try:
-        connection=psycopg2.connect(
-            host='localhost',
-            database='hoteldb',
-            user='postgres',
-            password='Datacraft'
-        )
-        cursor=connection.cursor()
-
-        erwachsene = self.adults_ntry.get()
-        kinder = self.children_ntry.get()
-        nächte_am_wochenende = self.weekend_nights_entry.get()
-        nächte_unter_der_woche = self.weekday_nights_entry.get()
-        verpflegungsplan = self.meal_plan_entry.get()
-        parkplatz = self.parking_entry.get()
-        zimmertyp = self.room_type_ntry.get()
-        ankunftsjahr = self.arrival_year_entry.get()
-        ankunftsmonat = self.arrival_month_entry.get()
-        ankunftstag = self.arrival_day_entry.get()
-        marktsegment = self.market_segment_entry.get()
-        wiederkehrender_gast = self.returning_guest_entry.get()
-        vorherige_stornierungen = self.previous_cancellations_entry.get()
-        vorherige_nicht_stornierungen = self.previous_non_cancellations_entry.get()
-        durchschnittlicher_zimmerpreis = self.average_price_entry.get()
-        buchungsstatus = self.booking_status_entry.get()
+            erwachsene = self.adults_ntry.get()
+            kinder = self.children_ntry.get()
+            nächte_am_wochenende = self.weekend_nights_entry.get()
+            nächte_unter_der_woche = self.weekday_nights_entry.get()
+            verpflegungsplan = self.meal_plan_entry.get()
+            parkplatz = self.parking_entry.get()
+            zimmertyp = self.room_type_ntry.get()
+            ankunftsjahr = self.arrival_year_entry.get()
+            ankunftsmonat = self.arrival_month_entry.get()
+            ankunftstag = self.arrival_day_entry.get()
+            marktsegment = self.market_segment_entry.get()
+            wiederkehrender_gast = self.returning_guest_entry.get()
+            vorherige_stornierungen = self.previous_cancellations_entry.get()
+            vorherige_nicht_stornierungen = self.previous_non_cancellations_entry.get()
+            durchschnittlicher_zimmerpreis = self.average_price_entry.get()
+            buchungsstatus = self.booking_status_entry.get()
 
 
-        insert_query = """
-           INSERT INTO hotelgaeste (
-               erwachsene, kinder, nächte_am_wochenende, nächte_unter_der_woche,
-               verpflegungsplan, parkplatz, zimmertyp, ankunftsjahr, ankunftsmonat,
-               ankunftstag, marktsegment, wiederkehrender_gast, vorherige_stornierungen,
-               vorherige_nicht_stornierungen, durchschnittlicher_zimmerpreis, buchungsstatus
-           ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
-           """
-        cursor.execute(insert_query, (
-            erwachsene, kinder, nächte_am_wochenende, nächte_unter_der_woche,
-            verpflegungsplan, parkplatz, zimmertyp, ankunftsjahr, ankunftsmonat,
-            ankunftstag, marktsegment, wiederkehrender_gast, vorherige_stornierungen,
-            vorherige_nicht_stornierungen, durchschnittlicher_zimmerpreis, buchungsstatus
-        ))
+            insert_query = """
+               INSERT INTO hotelgaeste (
+                   erwachsene, kinder, nächte_am_wochenende, nächte_unter_der_woche,
+                   verpflegungsplan, parkplatz, zimmertyp, ankunftsjahr, ankunftsmonat,
+                   ankunftstag, marktsegment, wiederkehrender_gast, vorherige_stornierungen,
+                   vorherige_nicht_stornierungen, durchschnittlicher_zimmerpreis, buchungsstatus
+               ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+               """
+            cursor.executemany(insert_query, (
+                erwachsene, kinder, nächte_am_wochenende, nächte_unter_der_woche,
+                verpflegungsplan, parkplatz, zimmertyp, ankunftsjahr, ankunftsmonat,
+                ankunftstag, marktsegment, wiederkehrender_gast, vorherige_stornierungen,
+                vorherige_nicht_stornierungen, durchschnittlicher_zimmerpreis, buchungsstatus
+            ))
 
-        connection.commit()
-        cursor.close()
-        connection.close()
+            connection.commit()
+            cursor.close()
+            connection.close()
 
-        print("Erfolgreich gespeichert!")
+            print("Erfolgreich gespeichert!")
 
-    except Exception as e:
-        print("Fehler:", e)
+        except Exception as e:
+            print("Fehler:", e)
 
 
 
