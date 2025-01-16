@@ -1,11 +1,7 @@
 from tkinter import StringVar
-
 import customtkinter as ctk
 import psycopg2
 from customtkinter import CTkLabel, CTkFrame
-from numpy.random import weibull
-from psycopg import connect
-from sqlalchemy.dialects.mysql import insert
 
 
 class StartMenu(ctk.CTkFrame):
@@ -212,8 +208,6 @@ class StartMenu(ctk.CTkFrame):
             vorherige_nicht_stornierungen = self.previous_non_cancellations_entry.get()
             durchschnittlicher_zimmerpreis = self.average_price_entry.get()
             buchungsstatus = self.booking_status_entry.get()
-
-
             insert_query = """
                INSERT INTO hotelgaeste (
                    erwachsene, kinder, nächte_am_wochenende, nächte_unter_der_woche,
@@ -228,12 +222,10 @@ class StartMenu(ctk.CTkFrame):
                 ankunftstag, marktsegment, wiederkehrender_gast, vorherige_stornierungen,
                 vorherige_nicht_stornierungen, durchschnittlicher_zimmerpreis, buchungsstatus
             ))
-
             connection.commit()
             cursor.close()
             connection.close()
             print("Erfolgreich gespeichert!")
-
         except Exception as e:
             print("Fehler:", e)
 
