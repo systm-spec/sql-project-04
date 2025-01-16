@@ -4,7 +4,7 @@ import psycopg2
 from customtkinter import CTkLabel, CTkFrame
 
 
-class CreateCustomer(ctk.CTkScrollableFrame):
+class CreateCustomer(ctk.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
