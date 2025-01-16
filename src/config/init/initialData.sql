@@ -90,6 +90,3 @@ USING (id);
 
 SELECT * FROM hotelgaeste;
 
-
-
-
