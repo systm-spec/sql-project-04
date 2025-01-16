@@ -28,10 +28,11 @@ class SearchCustomer(ctk.CTkFrame):
 
         # Content-Frame
         self.content_frame = ctk.CTkFrame(self, fg_color="transparent")
-        self.content_frame.grid(column=0, row=1)
+
 
     # Fn um den search_var zu ändern und ihn zu casten
     def set_text(self):
+        self.content_frame.grid(column=0, row=1)
         self.search_var_int = int(self.search_var.get())
         workload = find_by_id(self.search_var_int)
         print("--------------\n",workload["first_name"])

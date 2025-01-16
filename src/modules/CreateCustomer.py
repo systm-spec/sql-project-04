@@ -4,7 +4,7 @@ import psycopg2
 from customtkinter import CTkLabel, CTkFrame
 
 
-class StartMenu(ctk.CTkFrame):
+class CreateCustomer(ctk.CTkScrollableFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
@@ -20,29 +20,29 @@ class StartMenu(ctk.CTkFrame):
         self.save_button=ctk.CTkButton(self.main_frame,text='Speichern',command=self.speichern)
         self.save_button.grid(pady=12)
 
-        ## ID
-        #self.id_frame = CTkFrame(self.main_frame)
-        #self.id_frame.grid(pady=3)
-        #self.id_ntry_lbl = CTkLabel(self.id_frame, text='Id:')
-        #self.id_ntry_lbl.grid(column=0, row=0)
-        #self.id_ntry = ctk.CTkEntry(self.id_frame)
-        #self.id_ntry.grid(column=1, row=0)
-#
-        ## First_name
-        #self.first_name_frame = CTkFrame(self.main_frame)
-        #self.first_name_frame.grid(pady=3)
-        #self.first_name_ntry_lbl = CTkLabel(self.first_name_frame, text='Vorname:')
-        #self.first_name_ntry_lbl.grid(column=0, row=0)
-        #self.first_name_ntry = ctk.CTkEntry(self.first_name_frame)
-        #self.first_name_ntry.grid(column=1, row=0)
-#
-        ## Last_name
-        #self.last_name_frame = CTkFrame(self.main_frame)
-        #self.last_name_frame.grid(pady=3)
-        #self.last_name_ntry_lbl = CTkLabel(self.last_name_frame, text='Nachname:')
-        #self.last_name_ntry_lbl.grid(column=0, row=0)
-        #self.last_name_ntry = ctk.CTkEntry(self.last_name_frame)
-        #self.last_name_ntry.grid(column=1, row=0)
+        # ID
+        self.id_frame = CTkFrame(self.main_frame)
+        self.id_frame.grid(pady=3)
+        self.id_ntry_lbl = CTkLabel(self.id_frame, text='Id:')
+        self.id_ntry_lbl.grid(column=0, row=0)
+        self.id_ntry = ctk.CTkEntry(self.id_frame)
+        self.id_ntry.grid(column=1, row=0)
+
+        # First_name
+        self.first_name_frame = CTkFrame(self.main_frame)
+        self.first_name_frame.grid(pady=3)
+        self.first_name_ntry_lbl = CTkLabel(self.first_name_frame, text='Vorname:')
+        self.first_name_ntry_lbl.grid(column=0, row=0)
+        self.first_name_ntry = ctk.CTkEntry(self.first_name_frame)
+        self.first_name_ntry.grid(column=1, row=0)
+
+        # Last_name
+        self.last_name_frame = CTkFrame(self.main_frame)
+        self.last_name_frame.grid(pady=3)
+        self.last_name_ntry_lbl = CTkLabel(self.last_name_frame, text='Nachname:')
+        self.last_name_ntry_lbl.grid(column=0, row=0)
+        self.last_name_ntry = ctk.CTkEntry(self.last_name_frame)
+        self.last_name_ntry.grid(column=1, row=0)
 
         # Erwachsene
         self.adults_frame = CTkFrame(self.main_frame)
@@ -191,7 +191,9 @@ class StartMenu(ctk.CTkFrame):
             )
             print("Connection established.")
             cursor=connection.cursor()
-            # id = int(self.id_ntry.get())
+            id = int(self.id_ntry.get())
+            first_name =self.first_name_ntry.get()
+            last_name = self.last_name_ntry.get()
             erwachsene = self.adults_ntry.get()
             kinder = self.children_ntry.get()
             nächte_am_wochenende = self.weekend_nights_entry.get()
@@ -209,15 +211,15 @@ class StartMenu(ctk.CTkFrame):
             durchschnittlicher_zimmerpreis = self.average_price_entry.get()
             buchungsstatus = self.booking_status_entry.get()
             insert_query = """
-               INSERT INTO hotelgaeste (
-                   erwachsene, kinder, nächte_am_wochenende, nächte_unter_der_woche,
+               INSERT INTO meta (
+                   id, first_name, last_name, erwachsene, kinder, nächte_am_wochenende, nächte_unter_der_woche,
                    verpflegungsplan, parkplatz, zimmertyp, ankunftsjahr, ankunftsmonat,
                    ankunftstag, marktsegment, wiederkehrender_gast, vorherige_stornierungen,
                    vorherige_nicht_stornierungen, durchschnittlicher_zimmerpreis, buchungsstatus
-               ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+               ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
                """
             cursor.execute(insert_query, (
-                erwachsene, kinder, nächte_am_wochenende, nächte_unter_der_woche,
+                id, first_name, last_name, erwachsene, kinder, nächte_am_wochenende, nächte_unter_der_woche,
                 verpflegungsplan, parkplatz, zimmertyp, ankunftsjahr, ankunftsmonat,
                 ankunftstag, marktsegment, wiederkehrender_gast, vorherige_stornierungen,
                 vorherige_nicht_stornierungen, durchschnittlicher_zimmerpreis, buchungsstatus

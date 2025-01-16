@@ -1,8 +1,7 @@
 import customtkinter as ctk
-from modules.StartMenu import StartMenu
+from modules.CreateCustomer import CreateCustomer
 from modules.SearchCustomer import SearchCustomer
 from util.windows import check_for_windows
-from PIL import Image
 import os
 import sys
 
@@ -22,13 +21,13 @@ class App(ctk.CTk):
         self.grid_columnconfigure(0, weight=1)
         self.bind("<Escape>", lambda a: self.destroy())
 
-        # START WINDOW ###
-        self.start_menu_frame = StartMenu(master=self, fg_color="transparent")
-        self.start_menu_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
+        # SearchCustomer ###
+        self.start_menu_frame = SearchCustomer(master=self, fg_color="transparent")
+        self.start_menu_frame.grid(row=0, column=0)
 
-        #### CREATION WINDOW ###
-        #self.start_character_frame = ConfigWrapper(self, fg_color="transparent")
-        #self.start_character_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
+       ##### CreateCustomer ###
+       #self.start_character_frame = CreateCustomer(self, fg_color="transparent")
+       #self.start_character_frame.grid(row=1, column=0, padx=20, pady=20, sticky="nsew")
 
 
 # MAIN
